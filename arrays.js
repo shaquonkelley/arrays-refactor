@@ -152,22 +152,22 @@ function getIndexOfItem(fridge, item) {
 
 function getItemFromNewFridge(fridge, item) {
 
-    let answer = "null";
+    let answer
     let lengthy = fridge.length;
-    
 
-    for (let i=0; i>lengthy-1; i++) {
+    for (let i=0; i<lengthy; i++) {
 
         let tempThing = fridge[i];
-
         if (tempThing.includes(item)) {
-            fridge = fridge.splice(i, 1, tempThing);
-            answer = item;
+            let answer = tempThing.splice(-1,1)
+            if(tempThing.length < 1){
+                fridge.splice(fridge.indexOf(tempThing),1)
+            }
+            return answer
         }
-
-        if (tempThing.length < 1 || tempThing === undefined || tempThing === null) {
-            fridge = fridge.filter(e => e.length);
-        }
+        // if (tempThing.length < 1 || tempThing === undefined || tempThing === null) {
+        //     fridge = fridge.filter(e => e.length);
+        // }
     }
 
     return answer;
@@ -219,12 +219,14 @@ function putItemInNewFridge(fridge, item) {
 Run these commands to make sure you did it right. They should all be true.
 */
 
+
 console.log("-----Tests for Exercise Four - getItemFromNewFridge-----");
 let newFridge = [["egg", "egg", "egg", "egg"], ["butter"], ["milk"], ["cheese", "cheese"]];
 console.log("* Get a cheese");
 let lengthBeforeGettingCheese = newFridge.length;
 let cheeseArrayLengthBeforeGettingCheese = newFridge[3].length;
 let cheese = getItemFromNewFridge(newFridge, "cheese");
+// console.log("this is the cheese " + cheese)
 console.log(cheese == "cheese" && newFridge.length == lengthBeforeGettingCheese && newFridge[3].length == cheeseArrayLengthBeforeGettingCheese - 1);
 
 console.log("* Get the last milk");
