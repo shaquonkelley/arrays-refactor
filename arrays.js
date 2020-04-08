@@ -166,20 +166,22 @@ function getIndexOfItem(fridge, item) {
 
 
 function getItemFromNewFridge(fridge, item) {
-
+    // no need to set value to null. You can always declare a variable and it will be set to undefined until you set it's value later.
     let answer = "null";
     let lengthy = fridge.length;
-    
-
+    //index is off when subtracting 1. Working with indexes of arrays can be weird. Try to stay consistent with how you use the >= and <=.
+    //Also the sign needs to be flipped on the middle condition for your loop. Right now we will never enter the loop since i is never greater than lengthy.
     for (let i=0; i>lengthy-1; i++) {
-
+        //work on better variable names. Variable names should be as descriptive as possible along with being as concise as possible. A variable name frideItem would make more sense.
         let tempThing = fridge[i];
 
         if (tempThing.includes(item)) {
+            //Make sure to look at the docs for your splice method. The next line should be used to remove the element. When removing an element with splice you should only have 2 parameters not 3.
+            //The 3rd parameter will try to add that as a replacement element for the one you deleted.
             fridge = fridge.splice(i, 1, tempThing);
             answer = item;
         }
-
+        // The if statement below is not needed. You can make a similar if statement as a nested if-statement in the one you made above on line 178. check out my version for the diff.
         if (tempThing.length < 1 || tempThing === undefined || tempThing === null) {
             fridge = fridge.filter(e => e.length);
         }
